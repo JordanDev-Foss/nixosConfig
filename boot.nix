@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
 	boot = {
+		#binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
 		lanzaboote = {
 			enable = true;
 			pkiBundle = "/var/lib/sbctl";

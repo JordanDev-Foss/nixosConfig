@@ -11,11 +11,11 @@
 		cmake
 		ffmpeg-full
 		git
-		gnome-boxes
+		#gnome-boxes
 		gnupg
-		libvirt
+		#libvirt
 		neovim
-		virt-viewer
+		#virt-viewer
 		wimlib
 		wget
 		qemu
@@ -36,5 +36,5 @@
 		konsole
 		elisa
 	];
-	virtualisation.libvirtd.enable = true;
+	#virtualisation.libvirtd.enable = true;
 }

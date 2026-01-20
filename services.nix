@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+
 	# Configure Flatpak repo
 	systemd.services.flatpak-repo = {
 		wantedBy = [ "multi-user.target" ];
@@ -8,6 +9,29 @@
 			flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		'';
 	};
+
+	systemd.services.clearZshHistory = {
+		description = "Clear Zsh History";
+		script = ''
+		#!/usr/bin/env zsh
+		: > /home/dixonj/.config/zsh/.zsh_history
+		'';
+		serviceConfig = {
+			PrivateNetwork = "yes";
+			Type = "oneshot";
+			User = "dixonj";
+		};
+	};
+	systemd.timers.clearZshHistory = {
+		description = "Timer to clear zsh history every 24 hours";
+		timerConfig = {
+			OnCalendar = "daily";
+			Persistent = true;
+			Unit = "clearZshHistory.service";
+		};
+		wantedBy = [ "timers.target" ];
+	};
+
 
 	systemd.settings.Manager = {
 		DefaultTimeoutStopSec = "10s";
@@ -44,7 +68,11 @@
 		displayManager.defaultSession = "plasma"; # Set default session to Plasma
 		flatpak.enable = true; # Enable Flatpak support
 		pulseaudio.enable = false; # Disable PulseAudio
-		printing.enable = true; # Enable printing support
+		printing = {
+			enable = true; # Enable printing support
+			webInterface = false;
+			openFirewall = false;
+		};
 		libinput.enable = true; # Enable libinput
 		pipewire = {
 			enable = true; # Enable PipeWire
@@ -52,12 +80,12 @@
 		};
 		ollama = {
 			enable = true;
-			acceleration = "rocm"; # Set acceleration method
+			package = pkgs.ollama-rocm;
 		};
 		syncthing = {
 			enable = true;
 			openDefaultPorts = true; # Open default ports for Syncthing
-			guiAddress = "0.0.0.0:8384"; # Set GUI address
+			guiAddress = "127.0.0.1:8384"; # Set GUI address
 			user = "dixonj"; # Set user for Syncthing
 			dataDir = "/home/dixonj/Documents"; # Default folder for new synced folders
 			configDir = "/home/dixonj/.config/syncthing"; # Config directory for Syncthing

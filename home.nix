@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ inputs, pkgs, lib, ... }: {
+	imports = [ inputs.nixcord.homeModules.nixcord ];
 
-{
 	home = {
 		username = "dixonj";
 		homeDirectory = "/home/dixonj";
@@ -13,38 +13,35 @@
 			dysk
 			fd
 			fastfetch
-			flatpak
-			flutter
 			gimp
 			inkscape
 			kdePackages.kdeconnect-kde
 			kdePackages.kleopatra
+			kdePackages.kdenlive
 			keepassxc
 			kitty
-			librewolf-bin
+			librewolf
+			libreoffice
 			lutris
 			nil
 			nix-search
-			neo
 			oh-my-zsh
 			onlyoffice-desktopeditors
 			prismlauncher
 			protonup-qt
 			protonup-ng
 			procs
-			qbittorrent
-			qtcreator
 			ripgrep
 			rustdesk
 			signal-desktop
 			tealdeer
 			tuigreet
-			thunderbird
 			tree
 			vesktop
 			vlc
 			vscodium
 			wl-clipboard
+			wireshark-cli
 			xh
 			zsh
 			];
@@ -53,13 +50,44 @@
 		
 
 		programs = {
+			nixcord = {
+				enable = true;
+				vesktop.enable = true;
+				config = {
+					useQuickCss = true;
+					themeLinks = [
+						"https://raw.githubusercontent.com/DiscordStyles/FrostedGlass/deploy/FrostedGlass.theme.css"
+					];
+					frameless = false;
+					plugins = {
+						BlurNSFW.enable = true;
+						betterFolders.enable = true;
+						alwaysAnimate.enable = true;
+						ClearURLs.enable = true;
+						copyStickerLinks.enable = true;
+						crashHandler.enable = true;
+						decor.enable = true;
+						gameActivityToggle.enable = true;
+						imageFilename.enable = true;
+						replaceGoogleSearch = {
+							enable = true;
+							customEngineName = "DuckDuckGo";
+							customEngineURL = "https://duckduckgo.com/search?q=";
+						};
+						USRBG.enable = true;
+						webKeybinds.enable = true;
+						webScreenShareFixes.enable = true;
+						whoReacted.enable = true;
+						youtubeAdblock.enable = true;
+					};
+				};
+			};
 
 			zsh = {
 				enable = true;
 				autocd = true;
 				enableCompletion = true;
 				autosuggestion.enable = true;
-				dotDir = "${config.xdg.configHome}/zsh";
 
 				initContent = ''
 				cat ~/nix-flake/ascii.txt
@@ -68,8 +96,13 @@
 				shellAliases = {
 					gc = "nix-collect-garbage -d && sudo nix-collect-garbage -d";
 					ls = "eza --icons -hal";
+					logout = "qdbus org.kde.Shutdown /Shutdown logout";
+					poweroff = "qdbus org.kde.Shutdown /Shutdown logoutAndShutdown";
+					reboot = "qdbus org.kde.Shutdown /Shutdown logoutAndReboot";
 					cat = "bat";
-					update = "$HOME/nix-flake/update.sh";
+					update = "$HOME/nix-flake/scripts/update.sh";
+					speedtest = "xh --download http://speedtest.tele2.net/20MB.zip";
+					rebuild = "sudo nixos-rebuild switch --flake /home/dixonj/nix-flake --impure --offline";
 					find = "fd";
 					grep = "rg";
 					top = "btm";

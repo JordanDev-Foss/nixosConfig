@@ -2,26 +2,35 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
-	imports =
-		[ # Include the results of the hardware scan.
-			./boot.nix
-			/etc/nixos/hardware-configuration.nix
-			./users.nix
-			./services.nix
-			./networking.nix
-			./programs.nix
-			./packages.nix
-		];
+#	imports =
+#		[ # Include the results of the hardware scan.
+#			./boot.nix
+#			/etc/nixos/hardware-configuration.nix
+#			./users.nix
+#			./services.nix
+#			./networking.nix
+#			./programs.nix
+#			./packages.nix
+#			inputs.nixosModules.home-manager
+#		];
 
 	
-	# Automatic Updating
-	system = {
-		autoUpgrade.enable = true;
-		autoUpgrade.dates = "daily";
-	};
+	#Automatic Updating
+	# Couldn't get this to work with my flake.
+	#system = {
+	#	autoUpgrade.enable = true;
+	#	autoUpgrade.dates = "daily";
+	#	autoUpgrade.flake = "$HOME/nix-flake#NixOS";
+	#	autoUpgrade.runGarbageCollection = true;
+	#	autoUpgrade.flags = [
+	#		"--impure"
+	#		"-I"
+	#		"nixos-config=$HOME/nix-flake/configuration.nix"
+	#	];
+	#};
 
 	#Automatic Cleanup
 	nix = {
