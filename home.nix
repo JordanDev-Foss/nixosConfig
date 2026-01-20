@@ -1,5 +1,4 @@
-{ inputs, pkgs, lib, ... }: {
-imports = [ inputs.nixcord.homeModules.nixcord ];
+{ inputs, config, pkgs, lib, ... }: {
 
 	home = {
 		username = "dixonj";
@@ -25,7 +24,6 @@ imports = [ inputs.nixcord.homeModules.nixcord ];
 			lutris
 			nil
 			nix-search
-			oh-my-zsh
 			onlyoffice-desktopeditors
 			prismlauncher
 			protonup-qt
@@ -37,8 +35,8 @@ imports = [ inputs.nixcord.homeModules.nixcord ];
 			tealdeer
 			tuigreet
 			tree
-			vesktop
 			vlc
+			vesktop
 			vscodium
 			wl-clipboard
 			wireshark-cli
@@ -51,39 +49,6 @@ imports = [ inputs.nixcord.homeModules.nixcord ];
 
 		programs = {
 			home-manager.enable = true;
-			nixcord = {
-				enable = true;
-				vesktop.enable = true;
-				config = {
-					useQuickCss = true;
-					themeLinks = [
-						"https://raw.githubusercontent.com/DiscordStyles/FrostedGlass/deploy/FrostedGlass.theme.css"
-					];
-					frameless = false;
-					plugins = {
-						BlurNSFW.enable = true;
-						betterFolders.enable = true;
-						alwaysAnimate.enable = true;
-						ClearURLs.enable = true;
-						copyStickerLinks.enable = true;
-						crashHandler.enable = true;
-						decor.enable = true;
-						gameActivityToggle.enable = true;
-						imageFilename.enable = true;
-						replaceGoogleSearch = {
-							enable = true;
-							customEngineName = "DuckDuckGo";
-							customEngineURL = "https://duckduckgo.com/search?q=";
-						};
-						USRBG.enable = true;
-						webKeybinds.enable = true;
-						webScreenShareFixes.enable = true;
-						whoReacted.enable = true;
-						youtubeAdblock.enable = true;
-					};
-				};
-			};
-
 			zsh = {
 				enable = true;
 				autocd = true;

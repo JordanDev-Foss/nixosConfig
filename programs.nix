@@ -3,13 +3,13 @@
 	security.pam.services.kdewallet.kwallet.enable = true;
 	virtualisation.docker.enable = true;
 	programs = {
+		zsh.enable = true;
 		obs-studio = {
 			enable = true;
 			plugins = with pkgs.obs-studio-plugins; [
 				obs-backgroundremoval
 				];
 			};
-		zsh.enable = true;
 		steam = {
 			enable = true;
 			#remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
