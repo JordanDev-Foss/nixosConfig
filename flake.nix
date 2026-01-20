@@ -3,9 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixcord = {
-    	url = "github:FlameFlag/nixcord";
-    };
+    nixcord.url = "github:FlameFlag/nixcord";
     home-manager = {
     	url = "github:nix-community/home-manager/master";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +15,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, lanzaboote, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, nixcord, lanzaboote, ... }: {
     nixosConfigurations.NixOS = nixpkgs.lib.nixosSystem rec {
     system = "x86_64-linux";
     specialArgs = {

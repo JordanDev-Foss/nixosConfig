@@ -1,5 +1,5 @@
 { inputs, pkgs, lib, ... }: {
-	imports = [ inputs.nixcord.homeModules.nixcord ];
+imports = [ inputs.nixcord.homeModules.nixcord ];
 
 	home = {
 		username = "dixonj";
@@ -50,6 +50,7 @@
 		
 
 		programs = {
+			home-manager.enable = true;
 			nixcord = {
 				enable = true;
 				vesktop.enable = true;
