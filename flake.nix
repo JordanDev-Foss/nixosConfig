@@ -21,20 +21,20 @@
 	inherit inputs system;
     };
       modules = [
-        ./boot.nix
-        ./configuration.nix
-        ./networking.nix
-        ./packages.nix
-        ./programs.nix
-        ./services.nix
-        ./users.nix
+        ./desktop/boot.nix
+        ./desktop/configuration.nix
+        ./desktop/networking.nix
+        ./desktop/packages.nix
+        ./desktop/programs.nix
+        ./desktop/services.nix
+        ./desktop/users.nix
 	/etc/nixos/hardware-configuration.nix
 	home-manager.nixosModules.home-manager
 	{
 		home-manager.useGlobalPkgs = true;
 		home-manager.useUserPackages = true;
 
-		home-manager.users.dixonj = ./home.nix;
+		home-manager.users.dixonj = ./desktop/dixonj/home.nix;
 		home-manager.extraSpecialArgs = {
 			inherit inputs;
 		};
