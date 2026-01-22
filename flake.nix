@@ -28,7 +28,7 @@
         ./desktop/programs.nix
         ./desktop/services.nix
         ./desktop/users.nix
-	./hardware-configuration.nix
+	./desktop/hardware-configuration.nix
 	home-manager.nixosModules.home-manager
 	{
 		home-manager.useGlobalPkgs = true;
