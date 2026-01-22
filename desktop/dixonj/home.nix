@@ -56,11 +56,11 @@
 				autosuggestion.enable = true;
 
 				initContent = ''
-				cat ~/nix-flake/ascii.txt
+				cat ~/nix-flake/scripts/ascii.txt
 				fastfetch -c examples/2.jsonc
 				'';
 				shellAliases = {
-					gc = "nix-collect-garbage -d && sudo nix-collect-garbage -d";
+					gc = "nix-collect-garbage -d; sudo nix-collect-garbage -d";
 					ls = "eza --icons -hal";
 					logout = "qdbus org.kde.Shutdown /Shutdown logout";
 					poweroff = "qdbus org.kde.Shutdown /Shutdown logoutAndShutdown";
@@ -68,14 +68,14 @@
 					cat = "bat";
 					update = "$HOME/nix-flake/scripts/update.sh";
 					speedtest = "xh --download http://speedtest.tele2.net/20MB.zip";
-					rebuild = "sudo nixos-rebuild switch --flake /home/dixonj/nix-flake --impure --offline";
+					rebuild = "sudo nixos-rebuild switch --impure --offline --flake /home/dixonj/nix-flake";
 					find = "fd";
 					grep = "rg";
 					top = "btm";
 					curl = "xh";
 					df = "dysk -a";
-					fastfetch = "cat $HOME/nix-flake/ascii.txt; fastfetch -c examples/2.jsonc";
-					neofetch = "cat $HOME/nix-flake/ascii.txt; fastfetch -c examples/2.jsonc";
+					fastfetch = "cat $HOME/nix-flake/scripts/ascii.txt; fastfetch -c examples/2.jsonc";
+					neofetch = "cat $HOME/nix-flake/scripts/ascii.txt; fastfetch -c examples/2.jsonc";
 
 				};
 
@@ -101,8 +101,10 @@
 				enable = true;
 				font.name = "FiraCode Nerd Font Mono";
 				font.package = pkgs.nerd-fonts.fira-code;
-				font.size = 12;
-
+				font.size = 16;
+				shellIntegration.enableZshIntegration = true;
+				themeFile = "CLRS";
+				extraConfig = "background_image ~/nix-flake/assets/notebook.jpg\ninitial_window_width 1360\ninitial_window_height 1000\nremember_window_size no";
 			};
 	};
 
