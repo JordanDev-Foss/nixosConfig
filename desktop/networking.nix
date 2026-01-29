@@ -4,6 +4,7 @@
 	networking = {
 		hostName = "NixOS";
 		networkmanager.enable = true;
+		#nameservers = [ "10.100.0.195" ];
 		interfaces.enp6s0.wakeOnLan.enable = true;
 
 		# Configure network proxy if necessary
