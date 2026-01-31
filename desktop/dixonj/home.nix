@@ -16,7 +16,7 @@
 			inkscape
 			kdePackages.kdeconnect-kde
 			kdePackages.kleopatra
-			kdePackages.kdenlive
+			#kdePackages.kdenlive
 			keepassxc
 			kitty
 			librewolf
