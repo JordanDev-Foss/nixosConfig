@@ -33,6 +33,7 @@
 			rustdesk
 			signal-desktop
 			tealdeer
+			tutanota-desktop
 			tuigreet
 			tree
 			vlc
