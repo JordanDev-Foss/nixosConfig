@@ -25,7 +25,6 @@
 		libva-utils
 	];
 	hardware.graphics.enable = true;
-	hardware.bluetooth.enable = true;
 	hardware.enableAllFirmware = true;
 	hardware.graphics.extraPackages = with pkgs; [ 
 		rocmPackages.clr.icd

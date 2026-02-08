@@ -4,7 +4,7 @@
 	networking = {
 		hostName = "NixOS";
 		networkmanager.enable = true;
-		nameservers = [ "10.100.0.195" ];
+		#nameservers = [ "10.100.0.195" ];
 		interfaces.enp6s0.wakeOnLan.enable = true;
 
 		# Configure network proxy if necessary
@@ -16,7 +16,7 @@
 			allowPing = false;
 			allowedTCPPorts = [ 39981 ];
 			allowedTCPPortRanges = [];
-			allowedUDPPorts = [ 39981 ];
+			allowedUDPPorts = [ 39981 4445 ];
 			allowedUDPPortRanges = [];
 		};
 	};

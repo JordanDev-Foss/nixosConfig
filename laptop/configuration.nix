@@ -19,12 +19,18 @@
 
 	
 	#Automatic Updating
-	system = {
-		autoUpgrade.enable = true;
-		autoUpgrade.dates = "daily";
-		autoUpgrade.flake = inputs.self.outPath;
-		autoUpgrade.runGarbageCollection = true;
-	};
+	# Couldn't get this to work with my flake.
+	#system = {
+	#	autoUpgrade.enable = true;
+	#	autoUpgrade.dates = "daily";
+	#	autoUpgrade.flake = "$HOME/nix-flake#NixOS";
+	#	autoUpgrade.runGarbageCollection = true;
+	#	autoUpgrade.flags = [
+	#		"--impure"
+	#		"-I"
+	#		"nixos-config=$HOME/nix-flake/configuration.nix"
+	#	];
+	#};
 
 	#Automatic Cleanup
 	nix = {

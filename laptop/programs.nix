@@ -1,13 +1,7 @@
 { pkgs, ... }:
 {
 	security.pam.services.kdewallet.kwallet.enable = true;
-	virtualisation = {
-		docker.enable = true;
-		libvirtd.enable = true;
-		spiceUSBRedirection.enable = true;
-	};
 	programs = {
-		#virt-manager.enable = true;
 		zsh.enable = true;
 		obs-studio = {
 			enable = true;
