@@ -16,6 +16,7 @@
 #			./packages.nix
 #			inputs.nixosModules.home-manager
 #		];
+	home-manager.backupFileExtension = ".bak";
 
 	
 	#Automatic Updating
