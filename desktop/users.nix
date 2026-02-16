@@ -12,7 +12,6 @@
 			shell = "/run/current-system/sw/bin/nologin";
 		};
 		dixonj = {
-			#hashedPassword = "$y$j9T$s.FJzHljPctFdDdKrunCj.$HKFmChSvub2.sU5awC3FeUUx/nXWSdg50ednDX8/pe2";
 			hashedPasswordFile = "/etc/nixos/desktop/dixonj/.secret";
 			isNormalUser = lib.mkForce true;
 			isSystemUser = lib.mkForce false;
