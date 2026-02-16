@@ -40,6 +40,7 @@
 
 	services = {
 
+
 		journald.extraConfig = "SystemMaxUse=100M";
 		xserver.enable = false;
 		xserver.videoDrivers = ["amdgpu"];

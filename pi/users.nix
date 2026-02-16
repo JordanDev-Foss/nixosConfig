@@ -11,12 +11,11 @@
 			hashedPassword = "!";
 			shell = "/run/current-system/sw/bin/nologin";
 		};
-		dixonj = {
-			#hashedPassword = "$y$j9T$s.FJzHljPctFdDdKrunCj.$HKFmChSvub2.sU5awC3FeUUx/nXWSdg50ednDX8/pe2";
-			hashedPasswordFile = "/etc/nixos/desktop/dixonj/.secret"
+		piadmin = {
+			hashedPassword = "$y$j9T$s.FJzHljPctFdDdKrunCj.$HKFmChSvub2.sU5awC3FeUUx/nXWSdg50ednDX8/pe2";
 			isNormalUser = lib.mkForce true;
 			isSystemUser = lib.mkForce false;
-			extraGroups = [ "wheel" "ollama" "adbusers" "video" "docker" "libvirt" "kvm" ];
+			extraGroups = [ "wheel" ];
 			shell = pkgs.zsh;
 		};
 	};

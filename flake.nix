@@ -15,6 +15,39 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, lanzaboote, ... }: {
+    nixosConfigurations.Pi = nixpkgs.lib.nixosSystem rec {
+      system = "aarch64-linux";
+      specialArgs = {
+      	inherit inputs system;
+      };
+      modules = [
+        ./pi/boot.nix
+	./pi/configuration.nix
+	./pi/networking.nix
+	./pi/packages.nix
+	./pi/programs.nix
+	./pi/services.nix
+	./pi/users.nix
+	./pi/hardware-configuration.nix
+	"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+        {
+          nixpkgs.config.allowUnsupportedSystem = true;
+          nixpkgs.hostPlatform.system = "armv7l-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
+	}
+	home-manager.nixosModules.home-manager
+	{
+		home-manager.useGlobalPkgs = true;
+		home-manager.useUserPackages = true;
+		home-manager.users.piadmin = ./pi/piadmin/home.nix;
+		home-manager.extraSpecialArgs = {
+			inherit inputs;
+		};
+	}
+	inputs.lanzaboote.nixosModules.lanzaboote
+      ];
+    };
+
     nixosConfigurations.NixOS = nixpkgs.lib.nixosSystem rec {
     system = "x86_64-linux";
     specialArgs = {
@@ -45,4 +78,5 @@
       };
 
     };
+
 }

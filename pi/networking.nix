@@ -2,10 +2,9 @@
 {
 	time.timeZone = "America/Chicago";
 	networking = {
-		hostName = "NixOS";
+		hostName = "Pihole";
 		networkmanager.enable = true;
 		nameservers = [ "10.100.0.195" ];
-		interfaces.enp6s0.wakeOnLan.enable = true;
 
 		# Configure network proxy if necessary
 		#proxy.default = "http://192.168.49.1:8228/";
@@ -13,13 +12,11 @@
 
 		firewall = {
 			enable = true;
-			allowPing = true;
-			allowedTCPPorts = [ 39981 27015 27036 ];
+			allowPing = false;
+			allowedTCPPorts = [ 5335 22 904 53 ];
 			allowedTCPPortRanges = [];
-			allowedUDPPorts = [ 39981 27015 ];
-			allowedUDPPortRanges = [
-				{ from = 27031; to = 27036; }
-			];
+			allowedUDPPorts = [ 47111 5335 53 ];
+			allowedUDPPortRanges = [];
 		};
 	};
 }
