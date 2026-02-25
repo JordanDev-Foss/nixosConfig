@@ -13,10 +13,10 @@
 			fd
 			fastfetch
 			gimp
+			hexchat
 			inkscape
-			kdePackages.kdeconnect-kde
 			kdePackages.kleopatra
-			#kdePackages.kdenlive
+			kdePackages.kdenlive
 			keepassxc
 			kitty
 			librewolf
@@ -46,8 +46,10 @@
 			];
 		};
 
+		services = {
+			kdeconnect.enable = true;
+		};
 		
-
 		programs = {
 			home-manager.enable = true;
 			zsh = {

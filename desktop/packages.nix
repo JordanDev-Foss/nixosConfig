@@ -15,6 +15,7 @@
 		gnupg
 		#libvirt
 		neovim
+		ollama-vulkan
 		#virt-viewer
 		wimlib
 		wget

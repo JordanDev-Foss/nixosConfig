@@ -8,6 +8,9 @@
 		};
 		bootspec.enable = true;
 		kernelPackages = pkgs.linuxPackages_xanmod;
+		kernel.sysctl = {
+			"vm.swappiness" = 10;
+		};
 		loader = {
 			systemd-boot.editor = false;
 			systemd-boot.enable = false;

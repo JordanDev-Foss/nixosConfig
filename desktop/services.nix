@@ -79,10 +79,6 @@
 			enable = true; # Enable PipeWire
 			pulse.enable = true; # Enable PulseAudio support in PipeWire
 		};
-		ollama = {
-			enable = true;
-			package = pkgs.ollama-rocm;
-		};
 		syncthing = {
 			enable = true;
 			openDefaultPorts = true; # Open default ports for Syncthing

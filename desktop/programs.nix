@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
 	security.pam.services.kdewallet.kwallet.enable = true;
+	security.pki.certificateFiles = [
+		./ca.pem
+	];
 	virtualisation = {
 		docker.enable = true;
 		libvirtd.enable = true;
