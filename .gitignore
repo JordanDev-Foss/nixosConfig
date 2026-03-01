@@ -1,4 +1,4 @@
 *.bak
-.secret
 *.secret
-.pem
+*.pem
+

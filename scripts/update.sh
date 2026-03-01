@@ -24,7 +24,7 @@ printf "Updating Nix Flake...\n"
 (nix flake update --flake $HOME/nix-flake &>/dev/null) & spinner $!
 
 printf "Rebuilding NixOS...\n"
-(sudo nixos-rebuild switch --impure --flake $HOME/nix-flake &>/dev/null) & spinner $!
+(sudo nixos-rebuild switch &>/dev/null) & spinner $!
 
 printf "Finished Updating System.\n"
 duration=$SECONDS
