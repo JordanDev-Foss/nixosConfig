@@ -2,7 +2,7 @@
   description = "Desktop Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
     	url = "github:nix-community/home-manager/master";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +16,7 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, lanzaboote, ... }: {
     nixosConfigurations.Pi = nixpkgs.lib.nixosSystem rec {
-      system = "aarch64-linux";
+      system = "x86_64-linux";
       specialArgs = {
       	inherit inputs system;
       };
@@ -29,12 +29,6 @@
 	./pi/services.nix
 	./pi/users.nix
 	./pi/hardware-configuration.nix
-	"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-        {
-          nixpkgs.config.allowUnsupportedSystem = true;
-          nixpkgs.hostPlatform.system = "armv7l-linux";
-          nixpkgs.buildPlatform.system = "x86_64-linux";
-	}
 	home-manager.nixosModules.home-manager
 	{
 		home-manager.useGlobalPkgs = true;

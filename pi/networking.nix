@@ -12,7 +12,7 @@
 
 		firewall = {
 			enable = true;
-			allowPing = false;
+			allowPing = true;
 			allowedTCPPorts = [ 5335 22 904 53 ];
 			allowedTCPPortRanges = [];
 			allowedUDPPorts = [ 47111 5335 53 ];

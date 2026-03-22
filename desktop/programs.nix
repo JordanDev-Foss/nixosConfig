@@ -6,11 +6,19 @@
 	];
 	virtualisation = {
 		docker.enable = true;
-		libvirtd.enable = true;
+		libvirtd = {
+			enable = true;
+			qemu = {
+				package = pkgs.qemu_kvm;
+				runAsRoot = true;
+				swtpm.enable = true;
+			};
+		};
 		spiceUSBRedirection.enable = true;
 	};
 	programs = {
 		#virt-manager.enable = true;
+		dconf.enable = true;
 		zsh.enable = true;
 		obs-studio = {
 			enable = true;

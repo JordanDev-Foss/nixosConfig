@@ -15,7 +15,7 @@
 			hashedPasswordFile = "/etc/nixos/desktop/dixonj/.secret";
 			isNormalUser = lib.mkForce true;
 			isSystemUser = lib.mkForce false;
-			extraGroups = [ "wheel" "ollama" "adbusers" "video" "docker" "libvirt" "kvm" ];
+			extraGroups = [ "wheel" "ollama" "adbusers" "video" "docker" "libvirtd" "kvm" ];
 			shell = pkgs.zsh;
 		};
 	};

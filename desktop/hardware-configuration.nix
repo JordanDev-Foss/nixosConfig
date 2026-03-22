@@ -9,8 +9,8 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.kernelModules = [ "usb_storage" ];
+  boot.kernelModules = [ "kvm-amd" "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -18,7 +18,16 @@
       fsType = "btrfs";
     };
 
-  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/28064949-e2cb-41c1-8ea2-7a97d0b0e53f";
+  boot.initrd.luks.devices."nixos" = {
+    device = "/dev/disk/by-uuid/28064949-e2cb-41c1-8ea2-7a97d0b0e53f";
+    allowDiscards = true;
+    keyFileSize = 4096;
+    keyFile = "/dev/sda";
+    fallbackToPassword = true;
+    crypttabExtraOpts = [ "keyfile-timeout=5" ];
+  };
+
+
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/187B-A494";

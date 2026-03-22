@@ -12,7 +12,7 @@
 			shell = "/run/current-system/sw/bin/nologin";
 		};
 		piadmin = {
-			hashedPassword = "$y$j9T$s.FJzHljPctFdDdKrunCj.$HKFmChSvub2.sU5awC3FeUUx/nXWSdg50ednDX8/pe2";
+			hashedPasswordFile = "/etc/nixos/pi/piadmin/.secret";
 			isNormalUser = lib.mkForce true;
 			isSystemUser = lib.mkForce false;
 			extraGroups = [ "wheel" ];

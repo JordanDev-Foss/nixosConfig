@@ -13,12 +13,13 @@
 			fd
 			fastfetch
 			gimp
+			godot
 			hexchat
 			inkscape
 			kdePackages.kleopatra
 			kdePackages.kdenlive
 			keepassxc
-			kitty
+			#kitty
 			librewolf
 			libreoffice
 			lutris
@@ -30,7 +31,7 @@
 			protonup-ng
 			procs
 			ripgrep
-			rustdesk
+			#rustdesk
 			signal-desktop
 			tealdeer
 			tutanota-desktop
@@ -43,6 +44,7 @@
 			wireshark-cli
 			xh
 			zsh
+			pkgs.nerd-fonts.fira-code
 			];
 		};
 
