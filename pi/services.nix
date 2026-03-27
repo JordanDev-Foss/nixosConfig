@@ -30,6 +30,21 @@
 
 
 	services = {
+		fail2ban = {
+			enable = true;
+		};
+		openssh = {
+			enable = true;
+			ports = [ 22 ];
+			settings = {
+				PasswordAuthentication = true;
+				PermitRootLogin = "no";
+				AllowUsers = [ "piadmin" ];
+			};
+		};
+		netbird = {
+			enable = true;
+		};
 		ntfy-sh = {
 			enable = true;
 			settings = {

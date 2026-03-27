@@ -20,7 +20,6 @@
 			wireshark-cli
 			xh
 			zsh
-			pkgs.nerd-fonts.fira-code
 			];
 		};
 		

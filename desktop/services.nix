@@ -39,6 +39,11 @@
 
 
 	services = {
+		netbird = {
+			enable = true;
+		};
+
+
 
 
 		journald.extraConfig = "SystemMaxUse=100M";

@@ -43,6 +43,7 @@
 			wl-clipboard
 			wireshark-cli
 			xh
+			zed-editor-fhs
 			zsh
 			pkgs.nerd-fonts.fira-code
 			];

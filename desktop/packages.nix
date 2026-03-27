@@ -22,6 +22,7 @@
 		gnupg
 		#libvirt
 		neovim
+		netbird-ui
 		ollama-vulkan
 		#virt-viewer
 		wimlib
