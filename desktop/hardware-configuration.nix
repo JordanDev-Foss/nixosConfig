@@ -17,20 +17,24 @@
     allowDiscards = true;
 
     # Raw keyfile validation properties
+    # TIP: If your keyfile drive path shifts around, swap "/dev/sda" below
+    # to a persistent path like "/dev/disk/by-id/usb-YOUR_DRIVE_ID_HERE"
     keyFile = "/dev/sda";
     keyFileSize = 4096;
-    crypttabExtraOpts = [ "keyfile-timeout=5" ];
 
-    # FIX: Fallback enabled to prevent a permanent boot hang if /dev/sda
-    # dynamically shifts to /dev/sdb due to shifting USB enumeration at startup.
-    fallbackToPassword = true;
+    # MODERN FALLBACK: We pass password fallback directly to the systemd-cryptsetup engine.
+    # "keyfile-timeout=5" tries the file for 5 seconds; if it fails or the device isn't found,
+    # systemd automatically prompts for your passphrases on screen.
+    crypttabExtraOpts = [
+      "keyfile-timeout=5"
+      "password-echo=no"
+    ];
   };
 
   # Core File System Layout
   fileSystems."/" = {
     device = "/dev/mapper/nixos";
     fsType = "btrfs";
-    # Added standard Btrfs mount optimizations for modern SSD/NVMe blocks
     options = [ "compress=zstd" "noatime" "ssd" ];
   };
 
