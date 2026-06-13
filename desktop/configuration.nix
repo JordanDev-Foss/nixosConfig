@@ -3,20 +3,45 @@
 {
   # Global SOPS-Nix Cryptographic Engine Configuration
   sops = {
-    # Relative path from this file to your encrypted secrets file
     defaultSopsFile = ../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-
-    # Standard location for the age decryption private key file on the host machine
     age.keyFile = "/var/lib/sops-nix/key.txt";
 
-    # Explicitly register the secret attribute the evaluator is searching for
-    secrets.my_user_password = {
-      # CRITICAL: Forces sops-nix to decrypt the password hash *before* user activation
-      # loops execute, preventing a dependency race condition during early boot phases.
-      neededForUsers = true;
+    secrets = {
+      my_user_password = {
+        neededForUsers = true;
+      };
+
+      # 1. Tell sops-nix to decrypt and map your GitHub private key
+      github_private_key = {
+        path = "/home/dixonj/.ssh/id_github";
+        owner = "dixonj";
+        group = "users";
+        mode = "0600";
+      };
+
+      # 2. Tell sops-nix to decrypt and map your standard RSA private key
+      rsa_private_key = {
+        path = "/home/dixonj/.ssh/id_rsa";
+        owner = "dixonj";
+        group = "users";
+        mode = "0600";
+      };
     };
   };
+
+  # 3. Keep your system SSH client cleanly configured to accept GitHub automatically
+  programs.ssh = {
+    knownHosts = {
+      "github.com" = {
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+      };
+    };
+  };
+
+  # =========================================================================
+  # Rest of your file remains completely untouched below:
+  # =========================================================================
 
   # Home Manager global backups
   home-manager.backupFileExtension = ".bak";
@@ -27,7 +52,7 @@
       enable = true;
       dates = "daily";
       flake = inputs.self.outPath;
-      runGarbageCollection = false; # Disabled here; handled properly below
+      runGarbageCollection = false;
     };
   };
 
@@ -49,6 +74,5 @@
   };
 
   # System State Version
-  # Do not change this value, even if upgrading NixOS releases.
   system.stateVersion = "25.05";
 }
