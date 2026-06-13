@@ -34,7 +34,7 @@
     ollama-vulkan # Leverages Vulkan computing layer instead of regular CPU rendering
 
     # Desktop UI Assets & Look-and-Feel Injections
-    sddm-astronaut-theme # FIX: Installs theme files directly so SDDM can find them at boot
+    #pkgs.sddm-astronaut-theme # FIX: Installs theme files directly so SDDM can find them at boot
 
     # Advanced Guest VM Integration Helpers
     # (Note: 'qemu' and 'virt-manager' binaries are managed automatically via services)

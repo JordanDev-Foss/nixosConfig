@@ -13,7 +13,7 @@
 
     # UEFI Secure Boot Compliance Layer
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2"; # Tracks stable Secure Boot releases
+      url = "github:nix-community/lanzaboote"; # Tracks stable Secure Boot releases
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
