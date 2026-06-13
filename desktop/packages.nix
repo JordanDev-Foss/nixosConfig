@@ -1,50 +1,67 @@
 { pkgs, ... }:
+
 {
-	# Allow unfree packages
-	nixpkgs.config.allowUnfree = true;
-	fonts.packages = with pkgs; [
-		corefonts
-		vista-fonts
-	];
+  # Licensing
+  nixpkgs.config.allowUnfree = true; # Allows pulling proprietary binaries like Steam or Corefonts
 
-	environment.systemPackages = with pkgs; [
-		virt-manager
-		virt-viewer
-		spice spice-gtk
-		spice-protocol
-		virtio-win
-		win-spice
-		android-tools
-		cmake
-		ffmpeg-full
-		git
-		#gnome-boxes
-		gnupg
-		#libvirt
-		neovim
-		netbird-ui
-		ollama-vulkan
-		#virt-viewer
-		wimlib
-		wget
-		qemu
-		mesa
-		mesa-gl-headers
-		libva
-		libva-utils
-	];
-	hardware.graphics.enable = true;
-	hardware.bluetooth.enable = true;
-	hardware.enableAllFirmware = true;
-	hardware.graphics.extraPackages = with pkgs; [ 
-		rocmPackages.clr.icd
-		rocmPackages.tensile
-	];
+  # System-Wide Font Management
+  fonts.packages = with pkgs; [
+    corefonts
+    vista-fonts
+  ];
 
-	environment.plasma6.excludePackages = with pkgs.kdePackages; [
-		plasma-browser-integration
-		konsole
-		elisa
-	];
-	#virtualisation.libvirtd.enable = true;
+  # System-Wide Applications and Development Tools
+  environment.systemPackages = with pkgs; [
+    # Core Utilities & Security Infrastructure
+    git
+    wget
+    gnupg
+    cmake
+    ffmpeg-full   # Global media encoding pipeline support
+    wimlib        # Essential for deploying/modifying Windows disk images (WIM) for KVMs
+    android-tools # ADB & Fastboot deployment tools
+
+    # Core Graphics Rendering Utilities
+    libva
+    libva-utils
+    mesa
+    mesa-gl-headers
+
+    # Mesh Networking Graphical Interface
+    netbird-ui
+
+    # Local AI & Machine Learning Acceleration
+    ollama-vulkan # Leverages Vulkan computing layer instead of regular CPU rendering
+
+    # Desktop UI Assets & Look-and-Feel Injections
+    sddm-astronaut-theme # FIX: Installs theme files directly so SDDM can find them at boot
+
+    # Advanced Guest VM Integration Helpers
+    # (Note: 'qemu' and 'virt-manager' binaries are managed automatically via services)
+    spice
+    spice-gtk
+    spice-protocol
+    virtio-win    # Windows Guest WHQL driver storage/network ISO optimization layers
+    win-spice     # High-performance display drivers for Windows virtualization layers
+  ];
+
+  # Advanced Low-Level Hardware Configuration
+  hardware = {
+    bluetooth.enable = true;
+    enableAllFirmware = true; # Automatically grabs unfree firmware blobs for device compatibility
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd # OpenCL runtime layer for AMD GPUs (Essential for heavy Ollama workloads)
+        rocmPackages.tensile # Hardware-level matrix multiplication acceleration library
+      ];
+    };
+  };
+
+  # Stock KDE Bloat Elimination
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    konsole # Removed because you are using Zsh inside a customized Kitty profile
+    elisa   # Removed default media player to prevent menu clutter
+  ];
 }

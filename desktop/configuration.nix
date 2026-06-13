@@ -1,69 +1,54 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ inputs, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
-#	imports =
-#		[ # Include the results of the hardware scan.
-#			./boot.nix
-#			/etc/nixos/hardware-configuration.nix
-#			./users.nix
-#			./services.nix
-#			./networking.nix
-#			./programs.nix
-#			./packages.nix
-#			inputs.nixosModules.home-manager
-#		];
-	home-manager.backupFileExtension = ".bak";
+  # Global SOPS-Nix Cryptographic Engine Configuration
+  sops = {
+    # Relative path from this file to your encrypted secrets file
+    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
 
-	
-	#Automatic Updating
-	system = {
-		autoUpgrade.enable = true;
-		autoUpgrade.dates = "daily";
-		autoUpgrade.flake = inputs.self.outPath;
-		autoUpgrade.runGarbageCollection = true;
-	};
+    # Standard location for the age decryption private key file on the host machine
+    age.keyFile = "/var/lib/sops-nix/key.txt";
 
-	#Automatic Cleanup
-	nix = {
-		gc = {
-			automatic = true;
-			dates = "daily";
-			options = "--delete-older-than 10d";
-		};
-		settings = {
-			auto-optimise-store = true;
-			download-buffer-size = "512M";
-			experimental-features = [ "nix-command" "flakes" ];
-		};
-	};
+    # Explicitly register the secret attribute the evaluator is searching for
+    secrets.my_user_password = {
+      # CRITICAL: Forces sops-nix to decrypt the password hash *before* user activation
+      # loops execute, preventing a dependency race condition during early boot phases.
+      neededForUsers = true;
+    };
+  };
 
-	# Copy the NixOS configuration file and link it from the resulting system
-	# (/run/current-system/configuration.nix). This is useful in case you
-	# accidentally delete configuration.nix.
-	# system.copySystemConfiguration = true;
+  # Home Manager global backups
+  home-manager.backupFileExtension = ".bak";
 
-	# This option defines the first version of NixOS you have installed on this particular machine,
-	# and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-	#
-	# Most users should NEVER change this value after the initial install, for any reason,
-	# even if you've upgraded your system to a new NixOS release.
-	#
-	# This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-	# so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-	# to actually do that.
-	#
-	# This value being lower than the current NixOS release does NOT mean your system is
-	# out of date, out of support, or vulnerable.
-	#
-	# Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-	# and migrated your data accordingly.
-	#
-	# For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-	system.stateVersion = "25.05"; # Did you read the comment?
+  # Automatic Upgrades (Handled cleanly via Flakes)
+  system = {
+    autoUpgrade = {
+      enable = true;
+      dates = "daily";
+      flake = inputs.self.outPath;
+      runGarbageCollection = false; # Disabled here; handled properly below
+    };
+  };
 
+  # Nix Package Manager Configuration
+  nix = {
+    # Automatic Cleanup
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 10d";
+    };
+
+    # Nix Store Optimizations
+    settings = {
+      auto-optimise-store = true;
+      download-buffer-size = "512M";
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+
+  # System State Version
+  # Do not change this value, even if upgrading NixOS releases.
+  system.stateVersion = "25.05";
 }
-
