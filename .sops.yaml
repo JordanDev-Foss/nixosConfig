@@ -1,6 +1,5 @@
 keys:
   - &admin_desktop age1k62n353s0a8zye5z7u37xmthftpzlv63m5clwtv0ec03rrtps38qpfy50f
-
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
