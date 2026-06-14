@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Disko Module
+    disko = {
+      url = "github:nix-community/disko";
+    };
+
     # Secure Git-Friendly Secret Handling
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -47,6 +52,10 @@
           ./desktop/programs.nix
           ./desktop/packages.nix
           ./desktop/users.nix
+
+          # Disko (Will Wipe Current hardware-configuration.nix)
+          #disko.nixosModules.disko
+          #./desktop/disko.nix
 
           # Direct Injected Home Manager Environment
           {

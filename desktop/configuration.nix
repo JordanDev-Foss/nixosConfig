@@ -39,10 +39,6 @@
     };
   };
 
-  # =========================================================================
-  # Rest of your file remains completely untouched below:
-  # =========================================================================
-
   # Home Manager global backups
   home-manager.backupFileExtension = ".bak";
 
@@ -70,6 +66,28 @@
       auto-optimise-store = true;
       download-buffer-size = "512M";
       experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+
+  # =========================================================================
+  # Virtual Machine Specific Overrides (Only active during build-vm)
+  # =========================================================================
+  virtualisation.vmVariant = {
+    # Override the kernel parameters to wipe out the conflicting "vga=current"
+    boot.kernelParams = pkgs.lib.mkForce [
+      "quiet"
+      "splash"
+      "vga=normal" # Safe fallback for standard QEMU emulation display
+    ];
+
+    # Turn off Lanzaboote/Secure Boot inside the VM environment
+    boot.lanzaboote.enable = pkgs.lib.mkForce false;
+    boot.loader.systemd-boot.enable = pkgs.lib.mkForce true;
+
+    # Give the sandbox environment proper system resources
+    virtualisation = {
+      memorySize = 4096; # Upgrades the VM from 1GB to 4GB RAM
+      cores = 4;        # Allocates 4 CPU cores for snappy performance
     };
   };
 
