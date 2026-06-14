@@ -16,6 +16,7 @@
       dysk
       fd
       fastfetch
+      neovim
       procs
       ripgrep
       tealdeer
