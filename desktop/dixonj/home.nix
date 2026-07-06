@@ -72,9 +72,9 @@
     # User-space Git Identification
     git = {
       enable = true;
-      userName = "JordanDev-Foss";
-      userEmail = "jordandixon@jrips.org";
-      extraConfig = {
+      settings = {
+      	user.name = "JordanDev-Foss";
+      	user.email = "jordandixon@jrips.org";
         init.defaultBranch = "master";
       };
     };
@@ -104,8 +104,7 @@
       enableCompletion = true;
       autosuggestion.enable = true;
 
-      # FIX: Changed 'initContent' to the official 'initExtra' hook
-      initExtra = ''
+      initContent = ''
         cat ~/nix-flake/scripts/ascii.txt
         fastfetch -c examples/2.jsonc
       '';

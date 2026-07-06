@@ -6,7 +6,6 @@
 			enable = true;
 			pkiBundle = "/var/lib/sbctl";
 		};
-		bootspec.enable = true;
 		kernelPackages = pkgs.linuxPackages_xanmod;
 		kernel.sysctl = {
 			"vm.swappiness" = 10;
