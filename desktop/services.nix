@@ -65,7 +65,23 @@
     libinput.enable = true;
     printing = {
       enable = true;
-      webInterface = false; # Disables local unauthenticated browser management for network hardening
+      webInterface = true; # Disables local unauthenticated browser management for network hardening
+      drivers = [
+  	(pkgs.stdenv.mkDerivation {
+    	name = "4barcode-driver";
+    	src = ./4barcode-driver;
+    	nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    	buildInputs = [ pkgs.stdenv.cc.cc.lib pkgs.cups ];
+    	installPhase = ''
+      	mkdir -p $out/lib/cups/filter
+      	mkdir -p $out/share/cups/model
+      	cp rastertosnailtspl-4barcode $out/lib/cups/filter/
+      	cp 4B-2054N.ppd $out/share/cups/model/
+	chmod +x $out/lib/cups/filter/rastertosnailtspl-4barcode
+    	'';
+  	})
+	];
+
       openFirewall = false;
     };
 
