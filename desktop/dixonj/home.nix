@@ -43,7 +43,6 @@
       vlc
       vesktop
       vscodium
-      zed-editor-fhs
 
       # Specialized / Productivity Utilities
       nil # Nix Language Server
@@ -51,6 +50,7 @@
       prismlauncher # High-performance Minecraft gaming wrapper
       protonup-qt
       protonup-ng
+      sops
       wl-clipboard
       wireshark-cli
       hexchat

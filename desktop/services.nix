@@ -67,6 +67,7 @@
       enable = true;
       webInterface = true; # Disables local unauthenticated browser management for network hardening
       drivers = [
+      	pkgs.hplip
   	(pkgs.stdenv.mkDerivation {
     	name = "4barcode-driver";
     	src = ./4barcode-driver;
